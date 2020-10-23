@@ -14,7 +14,9 @@ class AddUserSettings extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('settings')->nullable()->default(null)->after('remember_token');
+            if (!Schema::hasColumn('users', 'settings')) {
+                $table->text('settings')->nullable()->default(null)->after('remember_token');
+            }
         });
     }
 

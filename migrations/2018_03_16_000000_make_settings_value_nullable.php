@@ -15,7 +15,9 @@ class MakeSettingsValueNullable extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->text('value')->nullable()->change();
+            if (!Schema::hasColumn('settings', 'value')) {
+                $table->text('value')->nullable()->change();
+            }
         });
     }
 

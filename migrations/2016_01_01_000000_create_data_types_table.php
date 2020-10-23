@@ -13,6 +13,7 @@ class CreateDataTypesTable extends Migration
     public function up()
     {
         // Create table for storing roles
+    if (!Schema::hasTable('data_types')){
         Schema::create('data_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
@@ -25,8 +26,10 @@ class CreateDataTypesTable extends Migration
             $table->boolean('generate_permissions')->default(false);
             $table->timestamps();
         });
+    }
 
         // Create table for storing roles
+    if ( !Schema::hasTable('data_rows') ){
         Schema::create('data_rows', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('data_type_id')->unsigned();
@@ -42,8 +45,9 @@ class CreateDataTypesTable extends Migration
             $table->text('details')->nullable();
 
             $table->foreign('data_type_id')->references('id')->on('data_types')
-                ->onUpdate('cascade')->onDelete('cascade');
+                    ->onUpdate('cascade')->onDelete('cascade');
         });
+    }
     }
 
     /**
@@ -53,7 +57,11 @@ class CreateDataTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('data_rows');
-        Schema::drop('data_types');
+        if ( Schema::hasTable('data_rows') ){
+            Schema::drop('data_rows');
+        }
+        if ( Schema::hasTable('data_types') ){
+            Schema::drop('data_types');
+        }
     }
 }

@@ -25,5 +25,3 @@
         @endif
     </div>
 @stop
-
-<div style="display:none">test</div>

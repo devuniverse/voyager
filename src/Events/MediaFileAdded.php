@@ -12,6 +12,6 @@ class MediaFileAdded
 
     public function __construct($path)
     {
-        $this->path = $path;
+        $this->path = str_replace('\\','/',$path);
     }
 }

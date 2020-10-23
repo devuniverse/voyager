@@ -62,13 +62,13 @@ class VoyagerMediaController extends Controller
                 $files[] = [
                     'name'          => $item['basename'],
                     'type'          => 'folder',
-                    'path'          => Storage::disk($this->filesystem)->url($item['path']),
-                    'relative_path' => $item['path'],
+                    'path'          => Storage::disk($this->filesystem)->url(str_replace('\\', '/', $item['path'])),
+                    'relative_path' => str_replace('\\', '/', $item['path']),
                     'items'         => '',
                     'last_modified' => '',
                 ];
             } else {
-                if (empty(pathinfo($item['path'], PATHINFO_FILENAME)) && !config('voyager.hidden_files')) {
+                if (empty(pathinfo(str_replace('\\', '/', $item['path']), PATHINFO_FILENAME)) && !config('voyager.hidden_files')) {
                     continue;
                 }
                 // Its a thumbnail and thumbnails should be hidden
@@ -80,8 +80,8 @@ class VoyagerMediaController extends Controller
                     'name'          => $item['basename'],
                     'filename'      => $item['filename'],
                     'type'          => $item['mimetype'] ?? 'file',
-                    'path'          => Storage::disk($this->filesystem)->url($item['path']),
-                    'relative_path' => $item['path'],
+                    'path'          => Storage::disk($this->filesystem)->url(str_replace('\\', '/', $item['path'])),
+                    'relative_path' => str_replace('\\', '/', $item['path']),
                     'size'          => $item['size'],
                     'last_modified' => $item['timestamp'],
                     'thumbnails'    => [],

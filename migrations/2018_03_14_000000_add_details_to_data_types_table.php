@@ -14,7 +14,9 @@ class AddDetailsToDatatypesTable extends Migration
     public function up()
     {
         Schema::table('data_types', function (Blueprint $table) {
-            $table->text('details')->nullable()->after('server_side');
+            if (!Schema::hasColumn('data_types', 'details')) {
+                $table->text('details')->nullable()->after('server_side');
+            }
         });
     }
 

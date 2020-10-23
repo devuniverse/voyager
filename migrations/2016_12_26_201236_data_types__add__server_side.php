@@ -14,7 +14,9 @@ class DataTypesAddServerSide extends Migration
     public function up()
     {
         Schema::table('data_types', function (Blueprint $table) {
-            $table->tinyInteger('server_side')->default(0)->after('generate_permissions');
+            if (!Schema::hasColumn('data_types', 'avatar')) {
+                $table->tinyInteger('server_side')->default(0)->after('generate_permissions');
+            }
         });
     }
 

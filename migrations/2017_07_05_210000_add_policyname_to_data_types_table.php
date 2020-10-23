@@ -13,7 +13,10 @@ class AddPolicyNameToDataTypesTable extends Migration
     public function up()
     {
         Schema::table('data_types', function (Blueprint $table) {
-            $table->string('policy_name')->nullable()->after('model_name');
+            if (!Schema::hasColumn('data_types', 'policy_name')) {
+                $table->string('policy_name')->nullable()->after('model_name');
+            }
+
         });
     }
 

@@ -14,8 +14,12 @@ class AddRouteToMenuItemsTable extends Migration
     public function up()
     {
         Schema::table('menu_items', function (Blueprint $table) {
-            $table->string('route')->nullable()->default(null);
-            $table->text('parameters')->nullable()->default(null);
+            if (!Schema::hasColumn('menu_items', 'route')) {
+                $table->string('route')->nullable()->default(null);
+            }
+            if (!Schema::hasColumn('menu_items', 'parameters')) {
+                $table->text('parameters')->nullable()->default(null);
+            }
         });
     }
 

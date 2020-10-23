@@ -14,7 +14,9 @@ class AddGroupToSettingsTable extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->string('group')->nullable()->after('order');
+            if (!Schema::hasColumn('settings', 'group')) {
+                $table->string('group')->nullable()->after('order');
+            }
         });
     }
 
