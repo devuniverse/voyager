@@ -136,6 +136,10 @@ class VoyagerServiceProvider extends ServiceProvider
         if (method_exists('Paginator', 'useBootstrap')) {
             Paginator::useBootstrap();
         }
+        $publishablePath = dirname(__DIR__).'/publishable';
+        $this->publishes([
+        __DIR__.'/public/assets' => public_path('voyager'),
+        ]);
     }
 
     /**
